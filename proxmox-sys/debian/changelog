@@ -1,3 +1,9 @@
+rust-proxmox-sys (0.6.4-1+port1) bookworm; urgency=medium
+
+  * use u8 for src/fs/dir.rs
+
+ -- jiangcuo <jiangcuo@bingsin.com>  Thu, 31 Oct 2024 19:50:07 +0800
+
 rust-proxmox-sys (0.6.4-1) bookworm; urgency=medium
 
   * drop unnecessary not-empty check on fixed-size array
