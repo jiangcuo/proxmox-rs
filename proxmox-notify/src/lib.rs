@@ -514,6 +514,74 @@ impl Bus {
             );
         }
 
+        #[cfg(feature = "dingtalk")]
+        {
+            use endpoints::dingtalk::DINGTALK_TYPENAME;
+            use endpoints::dingtalk::{DingtalkConfig, DingtalkEndpoint, DingtalkPrivateConfig};
+            endpoints.extend(
+                parse_endpoints_with_private_config!(
+                    config,
+                    DingtalkConfig,
+                    DingtalkPrivateConfig,
+                    DingtalkEndpoint,
+                    DINGTALK_TYPENAME
+                )?
+                .into_iter()
+                .map(|e| (e.name().into(), e)),
+            );
+        }
+
+        #[cfg(feature = "feishu")]
+        {
+            use endpoints::feishu::FEISHU_TYPENAME;
+            use endpoints::feishu::{FeishuConfig, FeishuEndpoint, FeishuPrivateConfig};
+            endpoints.extend(
+                parse_endpoints_with_private_config!(
+                    config,
+                    FeishuConfig,
+                    FeishuPrivateConfig,
+                    FeishuEndpoint,
+                    FEISHU_TYPENAME
+                )?
+                .into_iter()
+                .map(|e| (e.name().into(), e)),
+            );
+        }
+
+        #[cfg(feature = "wecom")]
+        {
+            use endpoints::wecom::WECOM_TYPENAME;
+            use endpoints::wecom::{WecomConfig, WecomEndpoint, WecomPrivateConfig};
+            endpoints.extend(
+                parse_endpoints_with_private_config!(
+                    config,
+                    WecomConfig,
+                    WecomPrivateConfig,
+                    WecomEndpoint,
+                    WECOM_TYPENAME
+                )?
+                .into_iter()
+                .map(|e| (e.name().into(), e)),
+            );
+        }
+
+        #[cfg(feature = "sms")]
+        {
+            use endpoints::sms::SMS_TYPENAME;
+            use endpoints::sms::{SmsConfig, SmsEndpoint, SmsPrivateConfig};
+            endpoints.extend(
+                parse_endpoints_with_private_config!(
+                    config,
+                    SmsConfig,
+                    SmsPrivateConfig,
+                    SmsEndpoint,
+                    SMS_TYPENAME
+                )?
+                .into_iter()
+                .map(|e| (e.name().into(), e)),
+            );
+        }
+
         let matchers = config
             .config
             .convert_to_typed_array(MATCHER_TYPENAME)

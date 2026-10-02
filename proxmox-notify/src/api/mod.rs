@@ -8,15 +8,23 @@ use proxmox_schema::api;
 use crate::{Config, Origin};
 
 pub mod common;
+#[cfg(feature = "dingtalk")]
+pub mod dingtalk;
+#[cfg(feature = "feishu")]
+pub mod feishu;
 #[cfg(feature = "gotify")]
 pub mod gotify;
 pub mod matcher;
 #[cfg(feature = "sendmail")]
 pub mod sendmail;
+#[cfg(feature = "sms")]
+pub mod sms;
 #[cfg(feature = "smtp")]
 pub mod smtp;
 #[cfg(feature = "webhook")]
 pub mod webhook;
+#[cfg(feature = "wecom")]
+pub mod wecom;
 
 // We have our own, local versions of http_err and http_bail, because
 // we don't want to wrap the error in anyhow::Error. If we were to do that,
@@ -59,6 +67,18 @@ pub enum EndpointType {
     /// Webhook endpoint
     #[cfg(feature = "webhook")]
     Webhook,
+    /// DingTalk robot endpoint
+    #[cfg(feature = "dingtalk")]
+    Dingtalk,
+    /// Feishu bot endpoint
+    #[cfg(feature = "feishu")]
+    Feishu,
+    /// WeCom robot endpoint
+    #[cfg(feature = "wecom")]
+    Wecom,
+    /// SMS endpoint
+    #[cfg(feature = "sms")]
+    Sms,
 }
 
 #[api]
@@ -129,6 +149,50 @@ pub fn get_targets(config: &Config) -> Result<Vec<Target>, HttpError> {
         })
     }
 
+    #[cfg(feature = "dingtalk")]
+    for endpoint in dingtalk::get_endpoints(config)? {
+        targets.push(Target {
+            name: endpoint.name,
+            origin: endpoint.origin.unwrap_or(Origin::UserCreated),
+            endpoint_type: EndpointType::Dingtalk,
+            disable: endpoint.disable,
+            comment: endpoint.comment,
+        })
+    }
+
+    #[cfg(feature = "feishu")]
+    for endpoint in feishu::get_endpoints(config)? {
+        targets.push(Target {
+            name: endpoint.name,
+            origin: endpoint.origin.unwrap_or(Origin::UserCreated),
+            endpoint_type: EndpointType::Feishu,
+            disable: endpoint.disable,
+            comment: endpoint.comment,
+        })
+    }
+
+    #[cfg(feature = "wecom")]
+    for endpoint in wecom::get_endpoints(config)? {
+        targets.push(Target {
+            name: endpoint.name,
+            origin: endpoint.origin.unwrap_or(Origin::UserCreated),
+            endpoint_type: EndpointType::Wecom,
+            disable: endpoint.disable,
+            comment: endpoint.comment,
+        })
+    }
+
+    #[cfg(feature = "sms")]
+    for endpoint in sms::get_endpoints(config)? {
+        targets.push(Target {
+            name: endpoint.name,
+            origin: endpoint.origin.unwrap_or(Origin::UserCreated),
+            endpoint_type: EndpointType::Sms,
+            disable: endpoint.disable,
+            comment: endpoint.comment,
+        })
+    }
+
     Ok(targets)
 }
 
@@ -164,6 +228,22 @@ fn ensure_endpoint_exists(#[allow(unused)] config: &Config, name: &str) -> Resul
     #[cfg(feature = "webhook")]
     {
         exists = exists || webhook::get_endpoint(config, name).is_ok();
+    }
+    #[cfg(feature = "dingtalk")]
+    {
+        exists = exists || dingtalk::get_endpoint(config, name).is_ok();
+    }
+    #[cfg(feature = "feishu")]
+    {
+        exists = exists || feishu::get_endpoint(config, name).is_ok();
+    }
+    #[cfg(feature = "wecom")]
+    {
+        exists = exists || wecom::get_endpoint(config, name).is_ok();
+    }
+    #[cfg(feature = "sms")]
+    {
+        exists = exists || sms::get_endpoint(config, name).is_ok();
     }
 
     if !exists {

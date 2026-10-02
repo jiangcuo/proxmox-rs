@@ -71,6 +71,51 @@ fn config_init() -> SectionConfig {
         ));
     }
 
+    #[cfg(feature = "dingtalk")]
+    {
+        use crate::endpoints::dingtalk::{DingtalkConfig, DINGTALK_TYPENAME};
+
+        const DINGTALK_SCHEMA: &ObjectSchema = DingtalkConfig::API_SCHEMA.unwrap_object_schema();
+        config.register_plugin(SectionConfigPlugin::new(
+            DINGTALK_TYPENAME.to_string(),
+            Some(String::from("name")),
+            DINGTALK_SCHEMA,
+        ));
+    }
+    #[cfg(feature = "feishu")]
+    {
+        use crate::endpoints::feishu::{FeishuConfig, FEISHU_TYPENAME};
+
+        const FEISHU_SCHEMA: &ObjectSchema = FeishuConfig::API_SCHEMA.unwrap_object_schema();
+        config.register_plugin(SectionConfigPlugin::new(
+            FEISHU_TYPENAME.to_string(),
+            Some(String::from("name")),
+            FEISHU_SCHEMA,
+        ));
+    }
+    #[cfg(feature = "wecom")]
+    {
+        use crate::endpoints::wecom::{WecomConfig, WECOM_TYPENAME};
+
+        const WECOM_SCHEMA: &ObjectSchema = WecomConfig::API_SCHEMA.unwrap_object_schema();
+        config.register_plugin(SectionConfigPlugin::new(
+            WECOM_TYPENAME.to_string(),
+            Some(String::from("name")),
+            WECOM_SCHEMA,
+        ));
+    }
+    #[cfg(feature = "sms")]
+    {
+        use crate::endpoints::sms::{SmsConfig, SMS_TYPENAME};
+
+        const SMS_SCHEMA: &ObjectSchema = SmsConfig::API_SCHEMA.unwrap_object_schema();
+        config.register_plugin(SectionConfigPlugin::new(
+            SMS_TYPENAME.to_string(),
+            Some(String::from("name")),
+            SMS_SCHEMA,
+        ));
+    }
+
     const MATCHER_SCHEMA: &ObjectSchema = MatcherConfig::API_SCHEMA.unwrap_object_schema();
     config.register_plugin(SectionConfigPlugin::new(
         MATCHER_TYPENAME.to_string(),
@@ -133,6 +178,54 @@ fn private_config_init() -> SectionConfig {
             WEBHOOK_TYPENAME.to_string(),
             Some(String::from("name")),
             WEBHOOK_SCHEMA,
+        ));
+    }
+    #[cfg(feature = "dingtalk")]
+    {
+        use crate::endpoints::dingtalk::{DingtalkPrivateConfig, DINGTALK_TYPENAME};
+
+        const DINGTALK_SCHEMA: &ObjectSchema =
+            DingtalkPrivateConfig::API_SCHEMA.unwrap_object_schema();
+        config.register_plugin(SectionConfigPlugin::new(
+            DINGTALK_TYPENAME.to_string(),
+            Some(String::from("name")),
+            DINGTALK_SCHEMA,
+        ));
+    }
+
+    #[cfg(feature = "feishu")]
+    {
+        use crate::endpoints::feishu::{FeishuPrivateConfig, FEISHU_TYPENAME};
+
+        const FEISHU_SCHEMA: &ObjectSchema = FeishuPrivateConfig::API_SCHEMA.unwrap_object_schema();
+        config.register_plugin(SectionConfigPlugin::new(
+            FEISHU_TYPENAME.to_string(),
+            Some(String::from("name")),
+            FEISHU_SCHEMA,
+        ));
+    }
+
+    #[cfg(feature = "wecom")]
+    {
+        use crate::endpoints::wecom::{WecomPrivateConfig, WECOM_TYPENAME};
+
+        const WECOM_SCHEMA: &ObjectSchema = WecomPrivateConfig::API_SCHEMA.unwrap_object_schema();
+        config.register_plugin(SectionConfigPlugin::new(
+            WECOM_TYPENAME.to_string(),
+            Some(String::from("name")),
+            WECOM_SCHEMA,
+        ));
+    }
+
+    #[cfg(feature = "sms")]
+    {
+        use crate::endpoints::sms::{SmsPrivateConfig, SMS_TYPENAME};
+
+        const SMS_SCHEMA: &ObjectSchema = SmsPrivateConfig::API_SCHEMA.unwrap_object_schema();
+        config.register_plugin(SectionConfigPlugin::new(
+            SMS_TYPENAME.to_string(),
+            Some(String::from("name")),
+            SMS_SCHEMA,
         ));
     }
     config

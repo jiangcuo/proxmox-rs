@@ -38,7 +38,7 @@ proxmox-time.workspace = true
 proxmox-uuid = { workspace = true, features = ["serde"] }
 
 [features]
-default = ["sendmail", "gotify", "smtp", "webhook"]
+default = ["sendmail", "gotify", "smtp", "webhook", "dingtalk", "feishu", "wecom", "sms"]
 mail-forwarder = ["dep:mail-parser", "dep:proxmox-sys", "proxmox-sendmail/mail-forwarder"]
 sendmail = ["dep:proxmox-sys", "dep:base64", "dep:proxmox-sendmail"]
 gotify = ["dep:proxmox-http", "dep:http"]
@@ -46,3 +46,7 @@ pve-context = ["dep:proxmox-sys"]
 pbs-context = ["dep:proxmox-sys"]
 smtp = ["dep:lettre"]
 webhook = ["dep:base64", "dep:http", "dep:percent-encoding", "dep:proxmox-http"]
+dingtalk = ["dep:proxmox-http"]
+feishu = ["dep:proxmox-http"]
+wecom = ["dep:proxmox-http"]
+sms = ["dep:proxmox-http"]
