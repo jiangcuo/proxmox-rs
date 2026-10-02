@@ -75,7 +75,11 @@ Suggests:
  librust-proxmox-notify+pbs-context-dev (= ${binary:Version}),
  librust-proxmox-notify+sendmail-dev (= ${binary:Version}),
  librust-proxmox-notify+smtp-dev (= ${binary:Version}),
- librust-proxmox-notify+webhook-dev (= ${binary:Version})
+ librust-proxmox-notify+webhook-dev (= ${binary:Version}),
+ librust-proxmox-notify+dingtalk-dev (= ${binary:Version}),
+ librust-proxmox-notify+feishu-dev (= ${binary:Version}),
+ librust-proxmox-notify+sms-dev (= ${binary:Version}),
+ librust-proxmox-notify+wecom-dev (= ${binary:Version})
 Provides:
  librust-proxmox-notify-0-dev (= ${binary:Version}),
  librust-proxmox-notify-0.5-dev (= ${binary:Version}),
@@ -92,7 +96,11 @@ Depends:
  librust-proxmox-notify+sendmail-dev (= ${binary:Version}),
  librust-proxmox-notify+gotify-dev (= ${binary:Version}),
  librust-proxmox-notify+smtp-dev (= ${binary:Version}),
- librust-proxmox-notify+webhook-dev (= ${binary:Version})
+ librust-proxmox-notify+webhook-dev (= ${binary:Version}),
+ librust-proxmox-notify+dingtalk-dev (= ${binary:Version}),
+ librust-proxmox-notify+feishu-dev (= ${binary:Version}),
+ librust-proxmox-notify+sms-dev (= ${binary:Version}),
+ librust-proxmox-notify+wecom-dev (= ${binary:Version})
 Provides:
  librust-proxmox-notify-0+default-dev (= ${binary:Version}),
  librust-proxmox-notify-0.5+default-dev (= ${binary:Version}),
@@ -206,3 +214,67 @@ Provides:
 Description: Notification base and plugins - feature "webhook"
  This metapackage enables feature "webhook" for the Rust proxmox-notify crate,
  by pulling in any additional dependencies needed by that feature.
+
+Package: librust-proxmox-notify+dingtalk-dev
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ librust-proxmox-notify-dev (= ${binary:Version}),
+ librust-proxmox-http-0.9+client-sync-dev (>= 0.9.5-~~),
+ librust-proxmox-http-0.9+default-dev (>= 0.9.5-~~)
+Provides:
+ librust-proxmox-notify-0+dingtalk-dev (= ${binary:Version}),
+ librust-proxmox-notify-0.5+dingtalk-dev (= ${binary:Version}),
+ librust-proxmox-notify-0.5.6+dingtalk-dev (= ${binary:Version})
+Description: Notification base and plugins - feature "dingtalk"
+ This metapackage enables feature "dingtalk" for the Rust proxmox-notify crate, by
+ pulling in any additional dependencies needed by that feature.
+
+Package: librust-proxmox-notify+feishu-dev
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ librust-proxmox-notify-dev (= ${binary:Version}),
+ librust-proxmox-http-0.9+client-sync-dev (>= 0.9.5-~~),
+ librust-proxmox-http-0.9+default-dev (>= 0.9.5-~~)
+Provides:
+ librust-proxmox-notify-0+feishu-dev (= ${binary:Version}),
+ librust-proxmox-notify-0.5+feishu-dev (= ${binary:Version}),
+ librust-proxmox-notify-0.5.6+feishu-dev (= ${binary:Version})
+Description: Notification base and plugins - feature "feishu"
+ This metapackage enables feature "feishu" for the Rust proxmox-notify crate, by
+ pulling in any additional dependencies needed by that feature.
+
+Package: librust-proxmox-notify+sms-dev
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ librust-proxmox-notify-dev (= ${binary:Version}),
+ librust-proxmox-http-0.9+client-sync-dev (>= 0.9.5-~~),
+ librust-proxmox-http-0.9+default-dev (>= 0.9.5-~~)
+Provides:
+ librust-proxmox-notify-0+sms-dev (= ${binary:Version}),
+ librust-proxmox-notify-0.5+sms-dev (= ${binary:Version}),
+ librust-proxmox-notify-0.5.6+sms-dev (= ${binary:Version})
+Description: Notification base and plugins - feature "sms"
+ This metapackage enables feature "sms" for the Rust proxmox-notify crate, by
+ pulling in any additional dependencies needed by that feature.
+
+Package: librust-proxmox-notify+wecom-dev
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ librust-proxmox-notify-dev (= ${binary:Version}),
+ librust-proxmox-http-0.9+client-sync-dev (>= 0.9.5-~~),
+ librust-proxmox-http-0.9+default-dev (>= 0.9.5-~~)
+Provides:
+ librust-proxmox-notify-0+wecom-dev (= ${binary:Version}),
+ librust-proxmox-notify-0.5+wecom-dev (= ${binary:Version}),
+ librust-proxmox-notify-0.5.6+wecom-dev (= ${binary:Version})
+Description: Notification base and plugins - feature "wecom"
+ This metapackage enables feature "wecom" for the Rust proxmox-notify crate, by
+ pulling in any additional dependencies needed by that feature.
